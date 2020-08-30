@@ -16,7 +16,7 @@ useEffect( ()=> {
     //watch video at 3:32:00, which explains why it needs fetchData
     const fetchData = async ()=> {
         try {
-            const responce = await RestaurantFinder.get("/");
+            const responce = await RestaurantFinder.get("/api/v1/restaurants");
             setRestaurants(responce.data.data.restaurant);
             
             //console.log(restaurant);
@@ -48,7 +48,7 @@ const renderRating = (restaurant) =>{
 const handleDelete = async (e,id) =>{
     e.stopPropagation();
     try {
-        await RestaurantFinder.delete(`/${id}`);
+        await RestaurantFinder.delete(`/api/v1/restaurants/${id}`);
         setRestaurants(restaurants.filter(restaurant => {
             return restaurant.id !== id
         }))

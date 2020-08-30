@@ -14,7 +14,7 @@ const RestaurantsDetailPage = () => {
     useEffect(() => {
         const fetchData = async ()=>{
             try {
-                const res = await RestaurantFinder.get(`/${id}`);
+                const res = await RestaurantFinder.get(`/api/v1/restaurants/${id}`);
                 setSelectedRestaurant(res.data.data)
                 //console.log(res.data.data)
             } catch (error) {
@@ -24,7 +24,7 @@ const RestaurantsDetailPage = () => {
         
         fetchData();
     },[setSelectedRestaurant,id])
-    
+
     return (
         <div>
             {selectedRestaurant && (

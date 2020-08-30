@@ -12,7 +12,7 @@ const AddRestaurant = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const responce = await RestaurantFinder.post("/",{
+            const responce = await RestaurantFinder.post("/api/v1/restaurants",{
                 name,
                 location,
                 price_range: priceRange,
