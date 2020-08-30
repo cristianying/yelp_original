@@ -1,8 +1,11 @@
 import axios from "axios";
 require('dotenv').config();
 
+
+const connectURL=process.env.POSTG_URL || "http://localhost:4001";
+console.log(connectURL);
 export default axios.create({
 
-    baseURL: process.env.POSTG_URL || "http://localhost:4001",
+    baseURL: connectURL,
 }) 
 
