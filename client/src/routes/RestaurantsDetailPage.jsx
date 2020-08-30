@@ -24,6 +24,7 @@ const RestaurantsDetailPage = () => {
         
         fetchData();
     },[setSelectedRestaurant,id])
+    
     return (
         <div>
             {selectedRestaurant && (
