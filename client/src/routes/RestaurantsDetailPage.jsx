@@ -9,7 +9,8 @@ import AddReview from '../components/AddReview';
 const RestaurantsDetailPage = () => {
     const {id}=useParams()
     const {selectedRestaurant,setSelectedRestaurant } = useContext(RestaurantsContext)
-
+    
+    
     useEffect(() => {
         const fetchData = async ()=>{
             try {

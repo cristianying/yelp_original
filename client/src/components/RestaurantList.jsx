@@ -8,6 +8,7 @@ import StarRating from './StarRating'
 const RestaurantList = () => {
     //desctructuring from context 
     const {restaurants,setRestaurants} = useContext(RestaurantsContext)
+    const {selectedRestaurant,setSelectedRestaurant } = useContext(RestaurantsContext)
 
     let history = useHistory();
 
@@ -17,6 +18,7 @@ useEffect( ()=> {
         try {
             const responce = await RestaurantFinder.get("/");
             setRestaurants(responce.data.data.restaurant);
+            
             //console.log(restaurant);
         } catch (error) {
             
@@ -62,6 +64,7 @@ const handleUpdate = (e,id) => {
 };
 
 const handleRestaurantSelect = (id) =>{
+    setSelectedRestaurant(null);
     history.push(`/restaurants/${id}`);
 }
     return (
