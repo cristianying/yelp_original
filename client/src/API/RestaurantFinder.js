@@ -3,9 +3,10 @@ require('dotenv').config();
 
 
 const connectURL=process.env.POSTG_URL || "http://localhost:4001";
-console.log(connectURL);
+console.log(process.env.POSTG_URL);
+
 export default axios.create({
 
-    baseURL: connectURL,
+    baseURL: "",
 }) 
 
