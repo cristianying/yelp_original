@@ -37,6 +37,7 @@ const Home = ({setAuth}) => {
         try {
             localStorage.removeItem("token");
             setAuth(false);
+            setRestaurants([]);
             toast.success("Logout successfully");
           } catch (err) {
             console.error(err.message);
