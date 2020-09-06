@@ -1,31 +1,38 @@
-import React,{useEffect,useContext} from 'react'
+import React,{useContext} from 'react'
 import RestaurantFinder from "../API/RestaurantFinder"
 import { RestaurantsContext } from '../context/RestaurantsContext'
 import { useHistory } from 'react-router-dom'
 import StarRating from './StarRating'
 
 
-const RestaurantList = () => {
+const RestaurantList = ({restaurants}) => {
     //desctructuring from context 
-    const {restaurants,setRestaurants} = useContext(RestaurantsContext)
-    const {selectedRestaurant,setSelectedRestaurant } = useContext(RestaurantsContext)
+    const {setRestaurants} = useContext(RestaurantsContext)
+    const {setSelectedRestaurant } = useContext(RestaurantsContext)
 
     let history = useHistory();
 
-useEffect( ()=> {
+// useEffect( ()=> {
     //watch video at 3:32:00, which explains why it needs fetchData
-    const fetchData = async ()=> {
-        try {
-            const responce = await RestaurantFinder.get("/api/v1/restaurants");
-            setRestaurants(responce.data.data.restaurant);
+    // const fetchData = async ()=> {
+
+        
+    //     try {
+    //         const responce = await RestaurantFinder.get("/api/v1/restaurants", {
             
-            //console.log(restaurant);
-        } catch (error) {
+    //             headers: {token: localStorage.token}
+    //        });
+
+    //        //console.log("new json: " ,responce )
+    //         setRestaurants(responce.data.data.restaurant);
             
-        }
-    }
-    fetchData();
-},[setRestaurants]);
+    //         console.log(responce.data.data.restaurant);
+    //     } catch (error) {
+            
+    //     }
+    // }
+    // fetchData();
+// },[restaurants]);
 
 
 const renderRating = (restaurant) =>{
@@ -34,7 +41,7 @@ const renderRating = (restaurant) =>{
     }
     return(
         <>
-            <StarRating rating = {restaurant.id}/>
+            <StarRating rating = {restaurant.restaurant_id}/>
             <span className="text-warning ml-1">({restaurant.count})</span>
         </>
 
@@ -44,13 +51,14 @@ const renderRating = (restaurant) =>{
 
 
 
-
 const handleDelete = async (e,id) =>{
     e.stopPropagation();
     try {
         await RestaurantFinder.delete(`/api/v1/restaurants/${id}`);
+
+
         setRestaurants(restaurants.filter(restaurant => {
-            return restaurant.id !== id
+            return restaurant.restaurant_id !== id
         }))
     } catch (error) {
         console.log(error);
@@ -67,6 +75,8 @@ const handleRestaurantSelect = (id) =>{
     setSelectedRestaurant(null);
     history.push(`/restaurants/${id}`);
 }
+
+
     return (
         <div className="list-group">
             <table className="table table-hover table-dark">
@@ -81,33 +91,28 @@ const handleRestaurantSelect = (id) =>{
                    </tr>
                </thead> 
             <tbody>
-                {restaurants && //if restaurant has data run below code
+                {
+                    restaurants.length !== 0 && 
+                    restaurants[0].restaurant_id !== null && //if restaurant has data run below code
                     restaurants.map(restaurant =>{
                     return(
-                    <tr onClick={()=>handleRestaurantSelect(restaurant.id)} key={restaurant.id} >
+                    <tr onClick={()=>handleRestaurantSelect(restaurant.restaurant_id)} key={restaurant.restaurant_id} >
                         <td>{restaurant.name}</td>
                         <td>{restaurant.location}</td>
                         <td>{"$".repeat(restaurant.price_range)}</td>
                         <td>{renderRating(restaurant)}</td>
                         <td>
-                            <button onClick={ (e) => handleUpdate(e,restaurant.id)} className="btn btn-warning">Update</button>
+                            <button onClick={ (e) => handleUpdate(e,restaurant.restaurant_id)} className="btn btn-warning">Update</button>
                         </td>
                         <td>
-                            <button onClick={ (e)=>handleDelete(e,restaurant.id)} className="btn btn-danger">Delete</button>
+                            <button onClick={ (e)=>handleDelete(e,restaurant.restaurant_id)} className="btn btn-danger">Delete</button>
                         </td>
 
                         
                     </tr>
                     )
                 })}
-                {/* <tr>
-                   <td>Mcdonalds</td>
-                   <td>NY</td> 
-                   <td>$$</td> 
-                   <td>Ratings</td>  
-                   <td><button className="btn btn-warning">Updates</button></td> 
-                   <td><button className="btn btn-danger">Delete</button></td> 
-                </tr> */}
+                
             </tbody>
             </table>
         </div>

@@ -1,16 +1,13 @@
 import React, {useState,useContext} from 'react'
 import RestaurantFinder from '../API/RestaurantFinder'
-import { useParams, useLocation, useHistory } from 'react-router-dom'
-import {RestaurantsContext} from "../context/RestaurantsContext";
+import { useParams } from 'react-router-dom'
+import {RestaurantsContext} from "../context/RestaurantsContext"
 
 const AddReview = () => {
     //useparams get id from current URL
     const {id}=useParams();
-    //location gives a set of info of the URL
-    const location=useLocation();
-    //allows to refresh to a certain URL
-    const history = useHistory();
 
+    const {addReviews} = useContext(RestaurantsContext);
     const [name,setName] = useState("")
     const [reviewText,setReviewText] = useState("")
     const [rating, setRating] = useState("Rating")
@@ -19,20 +16,21 @@ const AddReview = () => {
     
     const handleSubmitReview = async (e) => {
         e.preventDefault()
+        if(name && reviewText && rating){
         try {
-            const res=await RestaurantFinder.post(`/api/v1/restaurants/${id}/addReview`,{
+               const responce = await RestaurantFinder.post(`/api/v1/restaurants/${id}/addReview`,{
                 name,
                 review: reviewText,
                 rating
             })
 
-          
-
-            history.push("/");
-            history.push(location.pathname);
-        } catch (error) {
+            addReviews(responce.data.data.review);
             
+            
+        } catch (error) {
+            console.log(error)
         }
+    } else {} 
         
     }
     return (

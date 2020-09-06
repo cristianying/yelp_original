@@ -11,7 +11,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-toastify": "^6.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,5 +36,4 @@
     ]
   },
   "proxy": "http://localhost:4001"
-
 }

@@ -16,6 +16,8 @@ const StarRating = ({rating}) => {
     return (
         <>
         {stars}
+
+        {}
         </>
     )
 }
