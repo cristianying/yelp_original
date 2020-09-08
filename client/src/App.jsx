@@ -11,6 +11,7 @@ import Register from "./routes/Register";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RestaurantFinder from './API/RestaurantFinder';
+import NavBar from './components/NavBar';
 toast.configure();
 
 
@@ -41,6 +42,7 @@ const App = () => {
         setMounted(true)
         } catch (error) {
             console.error(error.message);
+            localStorage.removeItem("token");
         }
     }
 
@@ -59,17 +61,18 @@ useEffect(() => {
     }
 
     
+   
 
 if(mounted){
     return( 
    
     <RestaurantsContextProvider>
 
-    <div className="container">
+    
         <Router>
             <Switch>
                 
-                {/* <Route exact path='/' component={Home}/> */}
+                {/* <Route exact path='/navbar' component={NavBar}/>   */}
                 {/* <Route exact path='/restaurants/:id/update' component={UpdatePage}/> */}
                 {/* <Route exact path='/restaurants/:id' component={RestaurantsDetailPage}/> */}
                 
@@ -78,8 +81,11 @@ if(mounted){
                     exact path='/login' 
                     render= {props => 
                         !isAuthenticated ? (
+                           <div className="container">
                             <Login {...props} setAuth={setAuth}/>
+                            </div> 
                         ) : (
+                            
                             <Redirect to ="/" />
                             )
                         }/>
@@ -97,7 +103,10 @@ if(mounted){
                     exact path='/' 
                     render={props => 
                         isAuthenticated ? (
+                            <>
+                            <NavBar/>
                             <Home {...props} setAuth={setAuth}/>
+                            </>
                         ) : (
                             <Redirect to="/login"/>
                             )
@@ -106,7 +115,10 @@ if(mounted){
                     exact path='/restaurants/:id' 
                     render={props => 
                         isAuthenticated ? (
+                            <>
+                            <NavBar/>
                             <RestaurantsDetailPage {...props} setAuth={setAuth}/>
+                            </>
                         ) : (
                             <Redirect to="/login"/>
                             )
@@ -117,7 +129,10 @@ if(mounted){
                     exact path='/restaurants/:id/update' 
                     render={props => 
                         isAuthenticated ? (
+                            <>
+                            <NavBar/>
                             <UpdatePage {...props} setAuth={setAuth}/>
+                            </>
                         ) : (
                             <Redirect to="/login"/>
                             )
@@ -126,7 +141,7 @@ if(mounted){
         </Router>
     
  
-    </div>
+    
     </RestaurantsContextProvider>
      
     

@@ -91,7 +91,7 @@ router.post("/",authorization, async (req,res) => {
             },
         });
 
-        //console.log(results.rows[0]);
+        //console.log("from server: ",req.body.name);
     } catch (err){
         console.log(err);
     }

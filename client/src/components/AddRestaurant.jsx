@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import RestaurantFinder from "../API/RestaurantFinder"
 import {RestaurantsContext} from "../context/RestaurantsContext"
+import {Button} from '@material-ui/core';
 
 const AddRestaurant = () => {
 
@@ -88,7 +89,8 @@ const AddRestaurant = () => {
                             <option value="4">$$$$</option>
                         </select>
                     </div>
-                    <button onClick={handleSubmit} type="submit" className="btn btn-primary">Add</button>  
+                    <Button onClick={handleSubmit} color="primary" variant="contained">Add</Button>  
+                    {/* <button onClick={handleSubmit} type="submit" className="btn btn-primary">Add</button>   */}
                 </div>   
 
             </form>

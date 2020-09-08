@@ -60,7 +60,7 @@ const Home = ({setAuth}) => {
                 
                 setName(responce.data.data.restaurant[0].user_name);
                 
-                //console.log("first value", responce.data.data.restaurant[0].user_name);
+                console.log("first value",responce.data.data.restaurant);
             } catch (error) {
                 console.log(error);
             }
@@ -72,8 +72,8 @@ const Home = ({setAuth}) => {
 
     
     return (
-        <div>
-            <h1>Welcome {name}</h1>
+        <div className="container">
+            {/* <h1>Welcome {name}</h1> */}
             <Header/>
             <AddRestaurant/>
             <RestaurantList restaurants={restaurants}/>

@@ -12,6 +12,8 @@ const RestaurantList = ({restaurants}) => {
 
     let history = useHistory();
 
+    
+    
 // useEffect( ()=> {
     //watch video at 3:32:00, which explains why it needs fetchData
     // const fetchData = async ()=> {
@@ -41,7 +43,7 @@ const renderRating = (restaurant) =>{
     }
     return(
         <>
-            <StarRating rating = {restaurant.restaurant_id}/>
+            <StarRating rating = {restaurant.average_rating}/>
             <span className="text-warning ml-1">({restaurant.count})</span>
         </>
 
